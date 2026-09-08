@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SplitMate is a simple expense tracker for recording expenses, managing budgets, and backing up your data to Google Drive.">
+  <meta name="robots" content="index, follow">
+  <title>SplitMate — Expense Tracker</title>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --surface: #ffffff;
+      --text: #111827;
+      --muted: #667085;
+      --line: #e7ebf0;
+      --accent: #2563eb;
+      --accent-dark: #1d4ed8;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    .container {
+      width: min(980px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+    }
+
+    nav {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      text-decoration: none;
+      font-weight: 750;
+      font-size: 19px;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      background: #eaf1ff;
+      color: var(--accent);
+      font-size: 20px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      text-decoration: none;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .hero {
+      background: var(--surface);
+      padding: 92px 0 86px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 12px;
+      border: 1px solid #dbe5ff;
+      border-radius: 999px;
+      background: #f4f7ff;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 650;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      max-width: 780px;
+      margin: 0 auto;
+      font-size: clamp(40px, 7vw, 68px);
+      line-height: 1.05;
+      letter-spacing: -3px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 22px auto 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .actions {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 650;
+      border: 1px solid var(--line);
+      background: white;
+    }
+
+    .button.primary {
+      color: white;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .button.primary:hover {
+      background: var(--accent-dark);
+      border-color: var(--accent-dark);
+    }
+
+    main {
+      padding: 28px 0 70px;
+    }
+
+    section {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 34px;
+      margin-top: 22px;
+    }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: 27px;
+      letter-spacing: -0.8px;
+    }
+
+    section > p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .feature {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: #fbfcfe;
+    }
+
+    .feature strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+
+    .feature span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .drive-box {
+      margin-top: 22px;
+      padding: 20px;
+      border-radius: 15px;
+      background: #f7faff;
+      border: 1px solid #dce7ff;
+    }
+
+    .drive-box strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .links a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 650;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      background: var(--surface);
+      padding: 28px 0 40px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 650px) {
+      .container { width: min(100% - 26px, 980px); }
+      nav { height: 64px; }
+      .nav-links { display: none; }
+      .hero { padding: 68px 0 62px; }
+      h1 { letter-spacing: -2px; }
+      .hero p { font-size: 16px; }
+      section { padding: 25px; border-radius: 16px; }
+      .features { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a class="brand" href="/">
+          <span class="brand-mark">₹</span>
+          <span>SplitMate</span>
+        </a>
+
+        <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#backup">Google Drive Backup</a>
+          <a href="#privacy">Privacy</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="container">
+      <div class="eyebrow">Expense Tracker</div>
+      <h1>Take control of your everyday spending.</h1>
+      <p>
+        SplitMate helps you record expenses, organize your spending,
+        manage your budget, and keep your financial data backed up.
+      </p>
+
+      <div class="actions">
+        <!-- Replace this URL with your actual Google Play listing if needed. -->
+        <a class="button primary"
+           href="https://play.google.com/"
+           target="_blank"
+           rel="noopener noreferrer">
+          Get SplitMate on Google Play
+        </a>
+        <a class="button" href="#backup">Learn about backup</a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <div class="container">
+
+      <section id="features">
+        <h2>Everything you need to track expenses</h2>
+        <p>
+          SplitMate keeps everyday expense tracking simple and organized.
+        </p>
+
+        <div class="features">
+          <div class="feature">
+            <strong>Track expenses</strong>
+            <span>Record your spending and keep your transactions organized.</span>
+          </div>
+
+          <div class="feature">
+            <strong>Categories</strong>
+            <span>Organize expenses so you can understand where your money goes.</span>
+          </div>
+
+          <div class="feature">
+            <strong>Budgets</strong>
+            <span>Set and monitor budgets to stay aware of your spending.</span>
+          </div>
+
+          <div class="feature">
+            <strong>Spending history</strong>
+            <span>Review your previous expenses and spending activity.</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="backup">
+        <h2>Google Drive Backup</h2>
+        <p>
+          SplitMate can back up your expense data to your own Google Drive
+          account. You can create a backup from inside the app and restore
+          your data whenever you need it.
+        </p>
+
+        <div class="drive-box">
+          <strong>Your data, your Google account.</strong>
+          <span>
+            SplitMate uses Google Drive for its application-specific backup
+            data. It does not need access to unrelated files in your Drive.
+          </span>
+        </div>
+      </section>
+
+      <section id="privacy">
+        <h2>Privacy & Legal</h2>
+        <p>
+          SplitMate is designed to use only the permissions required to
+          provide its features. Read the privacy policy and terms for
+          complete information.
+        </p>
+
+        <div class="links">
+          <a href="/privacy-policy.html">Privacy Policy →</a>
+          <a href="/terms-and-conditions.html">Terms & Conditions →</a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      © 2026 SplitMate: Expense Tracker
+    </div>
+  </footer>
+</body>
+</html>
